@@ -1,0 +1,29 @@
+.inventory-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+}
+
+.inventory-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+}
+
+.inventory-item img {
+  width: 100px;
+  /* Adjust as needed */
+  height: 100px;
+  /* Adjust as needed */
+  object-fit: cover;
+}
+
+input[type="text"] {
+  width: 30%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
