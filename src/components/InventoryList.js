@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from './Modal';
+import '../styles/App.css'
 
 
 function InventoryItem({ item, onAddToCart }) {
@@ -24,9 +25,8 @@ function InventoryItem({ item, onAddToCart }) {
                 className={`inventory-item ${isClicked ? 'clicked' : ''}`}
                 onClick={handleItemClick}
             >
-                <img src={`/assets/${item.item_id}.jpg`} alt={item.item_name} />
-                <h3>{item.item_name}</h3>
-                <p>Quantity Available: {item.total_qty}</p>
+                <h3 className="item-title">{item.item_name}</h3>
+                <p className="item-details">Quantity Available: {item.total_qty}</p>
             </div>
 
             <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
