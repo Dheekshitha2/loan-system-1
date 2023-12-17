@@ -25,6 +25,7 @@
     align-items: center;
     justify-content: flex-end;
     margin-right: 30px;
+    position: relative;
 }
 
 .navbar a {
@@ -42,4 +43,49 @@
 
 .navbar .rightSide svg {
     font-size: 40px;
+}
+
+.cart-icon {
+    cursor: pointer;
+    color: white;
+}
+
+.cart-dropdown {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: white;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    padding: 12px;
+    z-index: 1;
+    width: 300px;
+    overflow-y: auto;
+}
+
+.cart-header,
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+    align-items: center;
+}
+
+.cart-header {
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-item button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.checkout-button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    color: red;
+    border: none;
+    cursor: pointer;
 }

@@ -1,0 +1,23 @@
+.search-bar {
+    position: relative;
+    width: 100%;
+}
+
+.search-bar .clear-search {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #999;
+}
+
+.search-bar input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    padding-right: 30px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}

@@ -10,14 +10,21 @@
   padding: 10px;
   margin: 10px;
   text-align: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  flex: 0 0 25%;
+  transition: opacity 0.3s ease;
+  height: 250px;
+  /*  display: flex;*/
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .inventory-item img {
   width: 100px;
-  /* Adjust as needed */
   height: 100px;
-  /* Adjust as needed */
   object-fit: cover;
+  margin: 0 auto;
 }
 
 input[type="text"] {
