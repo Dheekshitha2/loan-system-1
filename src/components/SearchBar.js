@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass, faTimes } from '@fortawesome/free-solid-svg-icons';
+import "../styles/SearchBar.css"
 
 function SearchBar({ onSearchChange }) {
     const [searchTerm, setSearchTerm] = useState('');
@@ -15,6 +18,7 @@ function SearchBar({ onSearchChange }) {
 
     return (
         <div className="search-bar">
+            <FontAwesomeIcon icon={faMagnifyingGlass} className='search-icon' />
             <input
                 type="text"
                 placeholder="Search for equipment..."
@@ -23,7 +27,7 @@ function SearchBar({ onSearchChange }) {
             />
             {searchTerm && (
                 <button onClick={clearSearch} className="clear-search">
-                    X
+                    <FontAwesomeIcon icon={faTimes} />
                 </button>
             )}
         </div>

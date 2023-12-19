@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Modal from './Modal';
-import '../styles/App.css'
+import '../styles/App.css';
+import SearchBar from './SearchBar';
 
 
 function InventoryItem({ item, onAddToCart }) {
@@ -56,8 +57,8 @@ function InventoryList({ cart, setCart }) {
             .catch(error => console.error('Error fetching data:', error));
     }, []);
 
-    const handleSearchChange = (event) => {
-        setSearchTerm(event.target.value);
+    const handleSearchChange = (newSearchTerm) => {
+        setSearchTerm(newSearchTerm);
     };
 
     const addToCart = (item, quantity) => {
@@ -71,12 +72,7 @@ function InventoryList({ cart, setCart }) {
 
     return (
         <div>
-            <input
-                type="text"
-                placeholder="Search for equipment..."
-                value={searchTerm}
-                onChange={handleSearchChange}
-            />
+            <SearchBar onSearchChange={handleSearchChange} />
             <div className="inventory-list">
                 {filteredItems.map(item => (
                     <InventoryItem

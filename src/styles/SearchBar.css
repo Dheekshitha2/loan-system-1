@@ -1,13 +1,16 @@
 .search-bar {
     position: relative;
-    width: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.search-bar .search-icon {
+    margin-right: 10px;
 }
 
 .search-bar .clear-search {
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
+    margin-left: 10px;
     background: transparent;
     border: none;
     cursor: pointer;
@@ -15,9 +18,8 @@
 }
 
 .search-bar input[type="text"] {
-    width: 100%;
+    flex-grow: 1;
     padding: 10px;
-    padding-right: 30px;
     border: 1px solid #ddd;
     border-radius: 4px;
 }

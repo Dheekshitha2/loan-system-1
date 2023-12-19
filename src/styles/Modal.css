@@ -20,6 +20,17 @@
     width: 90%;
 }
 
+.modal-content input[type="number"] {
+    width: 25%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    /* Ensures padding doesn't affect overall width */
+}
+
 .close-modal {
     position: absolute;
     top: 15px;
