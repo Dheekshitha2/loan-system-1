@@ -50,12 +50,14 @@ function InventoryList({ cart, setCart }) {
     const [items, setItems] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
 
+    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
     useEffect(() => {
-        fetch('http://localhost:5000/api/inventory')
+        fetch(`${API_URL}/api/inventory`)
             .then(response => response.json())
             .then(data => setItems(data))
             .catch(error => console.error('Error fetching data:', error));
-    }, []);
+    }, [API_URL]);
 
     const handleSearchChange = (newSearchTerm) => {
         setSearchTerm(newSearchTerm);
