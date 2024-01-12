@@ -20,14 +20,28 @@ function InventoryItem({ item, onAddToCart }) {
         setIsClicked(false); // Reset clicked state when modal is closed
     };
 
+
+    const imageUrl = `/assets/${item.item_id}.jpg`;
+    const defaultImageUrl = `/assets/default.jpg`;
+
+    const handleImageError = (e) => {
+        e.target.src = defaultImageUrl;
+    };
+
     return (
         <div>
             <div
                 className={`inventory-item ${isClicked ? 'clicked' : ''}`}
                 onClick={handleItemClick}
             >
+                <img
+                    src={imageUrl}
+                    alt={item.item_name}
+                    onError={handleImageError}
+                    className="item-image"
+                />
                 <h3 className="item-title">{item.item_name}</h3>
-                <p className="item-details">Quantity Available: {item.total_qty}</p>
+                <p className="item-details">Quantity Available: {item.qty_available}</p>
             </div>
 
             <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
