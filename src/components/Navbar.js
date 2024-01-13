@@ -30,7 +30,9 @@ function Navbar({ cart, setCart }) {
     return (
         <div className="navbar">
             <div className="leftSide">
-                <img src={Logo} alt="NUS" />
+                <Link to="/">
+                    <img src={Logo} alt="NUS" />
+                </Link>
             </div>
             <div className="rightSide">
                 <Link to="/"> Home </Link>
