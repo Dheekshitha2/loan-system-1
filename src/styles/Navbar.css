@@ -89,3 +89,24 @@
     border: none;
     cursor: pointer;
 }
+
+.test-form-button {
+    background-color: transparent;
+    border: 1px solid white;
+    /* Adds a white border */
+    color: white;
+    cursor: pointer;
+    margin-left: 20px;
+    /* Space it out from other items */
+    padding: 5px 10px;
+    /* Some padding for aesthetics */
+    border-radius: 4px;
+    /* Optional: rounded corners */
+}
+
+.test-form-button:hover {
+    background-color: white;
+    /* Change background on hover */
+    color: black;
+    /* Change text color on hover */
+}

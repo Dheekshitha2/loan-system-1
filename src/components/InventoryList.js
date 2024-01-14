@@ -78,7 +78,7 @@ function InventoryList({ cart, setCart }) {
     };
 
     const addToCart = (item, quantity) => {
-        const newCartItem = { ...item, quantity };
+        const newCartItem = { ...item, qty_borrowed: quantity };
         setCart(currentCart => [...currentCart, newCartItem]);
     };
 

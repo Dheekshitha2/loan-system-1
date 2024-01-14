@@ -21,7 +21,8 @@ function Navbar({ cart, setCart }) {
 
     const handleCheckout = () => {
         if (cart.length > 0) {
-            navigate('/borrow-form');
+            console.log("Cart items on checkout:", cart);
+            navigate('/new-borrow-form', { state: { selectedItems: cart } });
         } else {
             alert("Please select the items you wish to borrow.");
         }
@@ -48,7 +49,7 @@ function Navbar({ cart, setCart }) {
                         {cart.map((item, index) => (
                             <div key={index} className="cart-item">
                                 <span>{item.item_name}</span>
-                                <span>{item.quantity}</span>
+                                <span>{item.qty_borrowed}</span>
                                 <button onClick={() => removeFromCart(index)} style={{ color: "red" }}>X</button>
                             </div>
                         ))}
