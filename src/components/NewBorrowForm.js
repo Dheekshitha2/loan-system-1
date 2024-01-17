@@ -28,9 +28,28 @@ function NewBorrowForm() {
     });
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const updatedFormData = { ...formData, [e.target.name]: e.target.value };
+        setFormData(updatedFormData);
         setErrors({ ...errors, [e.target.name]: '' });
+
+        // Additional validation for date fields
+        if (e.target.name === 'end_usage_date' || e.target.name === 'start_usage_date') {
+            const startDate = updatedFormData['start_usage_date'];
+            const endDate = updatedFormData['end_usage_date'];
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // Reset time to start of the day
+
+            if (startDate && new Date(startDate) < today) {
+                // Set error if start date is today's date or earlier
+                setErrors(prevErrors => ({ ...prevErrors, 'start_usage_date': 'Start date cannot be today or earlier' }));
+            } else if (startDate && endDate && new Date(endDate) < new Date(startDate)) {
+                // Set error if end date is before start date
+                setErrors(prevErrors => ({ ...prevErrors, 'end_usage_date': 'End date cannot be earlier than start date' }));
+            }
+        }
     };
+
+
 
     const validateForm = () => {
         let isValid = true;
@@ -43,9 +62,16 @@ function NewBorrowForm() {
             }
         });
 
+        // Validate that end date is not before start date
+        if (new Date(formData.end_usage_date) < new Date(formData.start_usage_date)) {
+            newErrors['end_usage_date'] = 'End date cannot be earlier than start date!';
+            isValid = false;
+        }
+
         setErrors(newErrors);
         return isValid;
     };
+
 
 
     const handleSubmit = async (e) => {

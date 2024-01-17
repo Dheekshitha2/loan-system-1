@@ -28,7 +28,8 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     box-sizing: border-box;
-    /* Ensures padding doesn't affect overall width */
+    margin-left: -270px;
+    margin-right: auto;
 }
 
 .close-modal {

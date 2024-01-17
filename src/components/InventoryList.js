@@ -20,8 +20,7 @@ function InventoryItem({ item, onAddToCart }) {
         setIsClicked(false); // Reset clicked state when modal is closed
     };
 
-
-    const imageUrl = `/assets/${item.item_id}.jpg`;
+    const imageUrl = `/assets/${item.item_name}_${item.brand}_${item.model}.jpg`.replace(/\s+/g, '_').toLowerCase();
     const defaultImageUrl = `/assets/default.jpg`;
 
     const handleImageError = (e) => {
@@ -46,6 +45,16 @@ function InventoryItem({ item, onAddToCart }) {
 
             <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
                 <h2>{item.item_name}</h2>
+                <p>Brand: {item.brand}</p>
+                <p>Model: {item.model}</p>
+                <p>Serial Number: {item.serial_no}</p>
+                <p>Size/Specs: {item.size_specs}</p>
+                <img
+                    src={imageUrl}
+                    alt={`${item.item_name} ${item.brand} ${item.model}`}
+                    onError={handleImageError}
+                    className="item-modal-image"
+                />
                 <input
                     type="number"
                     value={quantity}
@@ -63,6 +72,7 @@ function InventoryItem({ item, onAddToCart }) {
 function InventoryList({ cart, setCart }) {
     const [items, setItems] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [selectedCategories, setSelectedCategories] = useState([]); // Change to array
 
     const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
@@ -77,18 +87,33 @@ function InventoryList({ cart, setCart }) {
         setSearchTerm(newSearchTerm);
     };
 
+    const handleCategoryChange = (category) => {
+        if (Array.isArray(category) && category.length === 0) {
+            setSelectedCategories([]);
+        } else if (selectedCategories.includes(category)) {
+            setSelectedCategories(selectedCategories.filter(cat => cat !== category));
+        } else {
+            setSelectedCategories([...selectedCategories, category]);
+        }
+    };
+
     const addToCart = (item, quantity) => {
         const newCartItem = { ...item, qty_borrowed: quantity };
         setCart(currentCart => [...currentCart, newCartItem]);
     };
 
     const filteredItems = items.filter(item =>
+        (selectedCategories.length === 0 || selectedCategories.includes(item.category)) &&
         item.item_name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     return (
         <div>
-            <SearchBar onSearchChange={handleSearchChange} />
+            <SearchBar
+                onSearchChange={handleSearchChange}
+                onCategoryChange={handleCategoryChange}
+                selectedCategories={selectedCategories} // Use selectedCategories
+            />
             <div className="inventory-list">
                 {filteredItems.map(item => (
                     <InventoryItem

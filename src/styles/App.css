@@ -59,3 +59,11 @@ input[type="text"] {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   font-size: 1em;
 }
+
+.item-modal-image {
+  max-width: 90%;
+  max-height: 200px;
+  object-fit: contain;
+  margin-bottom: 20px;
+  margin-left: -15px;
+}

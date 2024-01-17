@@ -43,13 +43,14 @@ function Navbar({ cart, setCart }) {
                 {isCartOpen && (
                     <div className="cart-dropdown">
                         <div className="cart-header">
-                            <span>Item</span>
-                            <span>Quantity</span>
+                            <div>Item</div>
+                            <div>Quantity</div>
+                            <div>Remove</div>
                         </div>
                         {cart.map((item, index) => (
                             <div key={index} className="cart-item">
-                                <span>{item.item_name}</span>
-                                <span>{item.qty_borrowed}</span>
+                                <div>{item.item_name}</div>
+                                <div>{item.qty_borrowed}</div>
                                 <button onClick={() => removeFromCart(index)} style={{ color: "red" }}>X</button>
                             </div>
                         ))}

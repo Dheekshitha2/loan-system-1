@@ -31,7 +31,13 @@
 .navbar a {
     color: white;
     text-decoration: none;
-    margin: 20px;
+    margin: 0 15px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: #f1c40f;
 }
 
 .navbar .rightSide button {
@@ -39,10 +45,6 @@
     border: none;
     color: white;
     cursor: pointer;
-}
-
-.navbar .rightSide svg {
-    font-size: 40px;
 }
 
 .cart-icon {
@@ -60,53 +62,78 @@
     z-index: 1;
     width: 300px;
     overflow-y: auto;
+    max-width: 400px;
 }
 
 .cart-header,
 .cart-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 5px 10px;
+    display: grid;
+    grid-template-columns: 2fr 1fr auto;
     align-items: center;
+    padding: 5px 10px;
+}
+
+.cart-header div,
+.cart-item div {
+    text-align: left;
+    padding-right: 10px;
+}
+
+.cart-header div:nth-child(-n+2),
+.cart-item div:nth-child(-n+2) {
+    border-right: 1px solid #eee;
 }
 
 .cart-header {
     font-weight: bold;
+    background-color: #f9f9f9;
     border-bottom: 1px solid #ddd;
 }
 
+.cart-item {
+    background-color: #fff;
+    border-bottom: 1px dashed #ccc;
+}
+
 .cart-item button {
-    background: none;
+    background: red;
+    color: white;
     border: none;
+    padding: 5px 10px;
     cursor: pointer;
+    border-radius: 4px;
+}
+
+.cart-item button:hover {
+    background: darkred;
 }
 
 .checkout-button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    color: red;
+    background-color: green;
+    color: white;
+    padding: 10px 15px;
     border: none;
+    width: 100%;
     cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.checkout-button:hover {
+    background-color: darkgreen;
 }
 
 .test-form-button {
     background-color: transparent;
     border: 1px solid white;
-    /* Adds a white border */
     color: white;
     cursor: pointer;
     margin-left: 20px;
-    /* Space it out from other items */
     padding: 5px 10px;
-    /* Some padding for aesthetics */
     border-radius: 4px;
-    /* Optional: rounded corners */
 }
 
 .test-form-button:hover {
     background-color: white;
-    /* Change background on hover */
     color: black;
-    /* Change text color on hover */
 }
