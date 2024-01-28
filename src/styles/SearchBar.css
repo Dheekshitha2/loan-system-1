@@ -140,6 +140,5 @@
 }
 
 .category-btn.selected {
-    background: blue;
-    /* Nice blue background for selected category */
+    background: #004494;
 }

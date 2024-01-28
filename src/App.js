@@ -16,7 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home cart={cart} setCart={setCart} />} />
           <Route path="/borrow-form" element={<BorrowForm selectedItems={cart} />} />
-          <Route path="/new-borrow-form" element={<NewBorrowForm />} /> {/* New route */}
+          <Route path="/new-borrow-form" element={<NewBorrowForm />} />
         </Routes>
       </Router>
     </div>

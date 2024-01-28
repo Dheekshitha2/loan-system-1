@@ -43,7 +43,7 @@
 }
 
 .navbar a:hover {
-    color: #f1c40f;
+    color: #004494;
 }
 
 .navbar .rightSide button {
@@ -158,10 +158,6 @@
     padding: 5px 10px;
     cursor: pointer;
     border-radius: 50px;
-}
-
-.cart-item button:hover {
-    background: gray;
 }
 
 .checkout-button {
