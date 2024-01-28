@@ -1,0 +1,66 @@
+.categories-sidebar {
+    width: 200px;
+    /* Adjust width as needed */
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    left: 0;
+    /* Align to the left side */
+    overflow-y: auto;
+    height: calc(100vh - 150px);
+}
+
+.categories-container {
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 10px;
+    padding: 30px;
+    margin-left: -50px;
+    margin-top: -60px;
+}
+
+.category-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    /* Use the full width of the sidebar */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 10px;
+    /* Add some padding for spacing */
+}
+
+.category-card:hover {
+    background-color: #f0f0f0;
+    /* Subtle hover effect */
+}
+
+.category-icon {
+    width: 50px;
+    /* Smaller size for the sidebar */
+    height: 50px;
+    /* Keep it square */
+    margin-right: 10px;
+    /* Space between icon and text */
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.category-name {
+    font-size: 14px;
+    /* Adjust font size for sidebar */
+    color: #333;
+    font-weight: 600;
+}
+
+.category-card.active {
+    transform: scale(1.05);
+    /* Highlight the active category */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    /* Stronger shadow for active card */
+}

@@ -3,7 +3,6 @@ import Modal from './Modal';
 import '../styles/App.css';
 import SearchBar from './SearchBar';
 
-
 function InventoryItem({ item, onAddToCart }) {
     const [modalOpen, setModalOpen] = useState(false);
     const [quantity, setQuantity] = useState(1);
@@ -40,6 +39,7 @@ function InventoryItem({ item, onAddToCart }) {
                     className="item-image"
                 />
                 <h3 className="item-title">{item.item_name}</h3>
+                <p className="item-brand">Brand: {item.brand}</p>
                 <p className="item-details">Quantity Available: {item.qty_available}</p>
             </div>
 
@@ -98,30 +98,62 @@ function InventoryList({ cart, setCart }) {
     };
 
     const addToCart = (item, quantity) => {
-        const newCartItem = { ...item, qty_borrowed: quantity };
-        setCart(currentCart => [...currentCart, newCartItem]);
+        // Find if the item is already in the cart
+        const existingItemIndex = cart.findIndex(cartItem => cartItem.item_id === item.item_id);
+
+        if (existingItemIndex >= 0) {
+            // If the item exists, update the quantity, ensuring it does not exceed available quantity
+            const existingItem = cart[existingItemIndex];
+            const updatedQty = existingItem.qty_borrowed + quantity;
+
+            if (updatedQty > item.qty_available) {
+                alert(`You cannot add more than ${item.qty_available} of this item.`);
+                return;
+            }
+
+            let updatedCart = [...cart];
+            updatedCart[existingItemIndex] = { ...existingItem, qty_borrowed: updatedQty };
+            setCart(updatedCart);
+        } else {
+            // If the item is not in the cart, add it directly
+            if (quantity > item.qty_available) {
+                alert(`You cannot add more than ${item.qty_available} of this item.`);
+                return;
+            }
+
+            // If the item is not in the cart and the cart length is 5, prevent adding
+            if (!existingItemIndex && cart.length >= 5) {
+                alert("You cannot add more than 5 different items to the cart.");
+                return;
+            }
+            const newCartItem = { ...item, qty_borrowed: quantity };
+            setCart(currentCart => [...currentCart, newCartItem]);
+        }
     };
 
     const filteredItems = items.filter(item =>
         (selectedCategories.length === 0 || selectedCategories.includes(item.category)) &&
-        item.item_name.toLowerCase().includes(searchTerm.toLowerCase())
+        item.item_name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+        item.qty_available > 0
     );
 
     return (
-        <div>
-            <SearchBar
-                onSearchChange={handleSearchChange}
-                onCategoryChange={handleCategoryChange}
-                selectedCategories={selectedCategories} // Use selectedCategories
-            />
-            <div className="inventory-list">
-                {filteredItems.map(item => (
-                    <InventoryItem
-                        key={item.item_id}
-                        item={item}
-                        onAddToCart={addToCart}
-                    />
-                ))}
+        <div className="main-content">
+            <div>
+                <SearchBar
+                    onSearchChange={handleSearchChange}
+                    onCategoryChange={handleCategoryChange}
+                    selectedCategories={selectedCategories}
+                />
+                <div className="inventory-list">
+                    {filteredItems.map(item => (
+                        <InventoryItem
+                            key={item.item_id}
+                            item={item}
+                            onAddToCart={addToCart}
+                        />)
+                    )}
+                </div>
             </div>
         </div>
     );

@@ -83,10 +83,9 @@ function NewBorrowForm() {
 
                 // Flatten selectedItems into formData
                 selectedItems.forEach((item, index) => {
+                    itemsData[`item_id_${index + 1}`] = item.item_id;
                     itemsData[`item_name_${index + 1}`] = item.item_name;
-                    // Assuming the quantity to borrow is part of each item object
-                    // If not, you'll need to adjust how you get the quantity
-                    itemsData[`quantity_${index + 1}`] = item.qty_borrowed; // Adjust this key based on your actual data structure
+                    itemsData[`quantity_${index + 1}`] = item.qty_borrowed;
                 });
 
                 const formDataToSend = {

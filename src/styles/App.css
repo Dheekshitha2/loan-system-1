@@ -1,23 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+
+body,
+html {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background-color: #f4f4f4;
+}
+
+.main-content {
+  display: flex;
+  /* Make space for the sidebar */
+  max-width: calc(100% - 150px);
+  /* Adjust the width */
+  padding: 40px;
+  align-items: center;
+}
+
+.content-area {
+  display: inline-flex;
+  padding: 50px 50px;
+  flex-direction: column;
+  align-items: center;
+  gap: 75px;
+}
+
+
+.categories-sidebar {
+  position: sticky;
+  top: 150px;
+  /* Adjust if your navbar height changes */
+  height: calc(100vh - 150px);
+  /* Adjust the height based on navbar */
+}
+
 .inventory-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  /* Changed to auto-fit and adjusted min-width */
   gap: 20px;
   padding: 20px;
+  /* Adjust padding as needed */
+  justify-content: center;
+  /* This will center the grid items if they don't fill the entire width */
 }
 
 .inventory-item {
-  border: 1px solid #ddd;
-  padding: 20px;
-  margin: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: box-shadow 0.3s ease;
   display: flex;
+  width: 232px;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  height: 300px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #F9F9F9;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.05);
 }
 
 .inventory-item:hover {
@@ -26,37 +67,53 @@
 
 .inventory-item .item-image {
   width: 100%;
-  max-height: 150px;
+  max-height: 140px;
   object-fit: contain;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
   border-radius: 8px;
 }
 
-.item-image-container {
-  flex-shrink: 0;
-  margin-right: 20px;
+/* Add responsive behavior */
+@media (min-width: 768px) {
+
+  /* Adjust breakpoint as needed */
+  .inventory-list {
+    grid-template-columns: repeat(4, 1fr);
+    /* Four items per row */
+  }
 }
 
-.item-title {
-  font-size: 1.2em;
-  margin-bottom: 0.5em;
-  font-weight: 600;
-  color: #333;
+@media (max-width: 768px) {
+  .content-area {
+    padding: 100px 50px;
+    /* Adjusted padding for smaller screens */
+    gap: 50px;
+    /* Adjusted gap for smaller screens */
+  }
 }
 
+.item-title,
+.item-brand,
 .item-details {
   font-size: 1em;
   color: #666;
+  text-align: center;
+}
+
+.item-details {
   margin-top: auto;
 }
 
+input[type="number"],
 input[type="text"] {
-  width: 50%;
+  width: 100%;
+  /* Full width inputs */
   padding: 10px;
-  margin: 20px 0;
+  margin: 10px 0;
   border: 1px solid #ddd;
   border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
   font-size: 1em;
 }
 
@@ -65,5 +122,37 @@ input[type="text"] {
   max-height: 200px;
   object-fit: contain;
   margin-bottom: 20px;
-  margin-left: -15px;
+}
+
+.welcome-message {
+  display: flex;
+  width: 862px;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right: 80px;
+  margin-top: -15px;
+}
+
+h1 {
+  color: #000;
+
+  /* Title */
+  font-family: Rubik;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+p {
+  color: #000;
+
+  /* Subtitle */
+  font-family: Rubik;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  width: 736px;
+  margin-top: -5px;
 }

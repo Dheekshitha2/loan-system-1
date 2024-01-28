@@ -1,8 +1,19 @@
 .search-bar {
-    position: relative;
-    width: 50%;
     display: flex;
+    width: 862px;
+    height: 20px;
+    padding: 12px 24px;
     align-items: center;
+    gap: 10px;
+    border-radius: 48px;
+    background: rgba(0, 0, 0, 0.10);
+    margin-top: -105px;
+    margin-bottom: 70px;
+}
+
+.search-bar input[type="text"] {
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 .search-bar .search-icon {
@@ -20,21 +31,42 @@
 .search-bar input[type="text"] {
     flex-grow: 1;
     padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border: none;
+    /* Remove border */
+    border-radius: 48px;
+    /* Match parent's border-radius */
+    background: rgba(0, 0, 0, 0);
+    /* Inherit the background from the parent */
+    font-family: Rubik, sans-serif;
+    /* Specify the font-family */
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.75);
+    /* Adjust text color as needed */
+    outline: none;
+    /* Remove focus outline */
 }
 
+.search-bar input[type="text"]::placeholder {
+    color: rgba(0, 0, 0, 0.50);
+    font-family: Rubik, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.search-bar .search-icon,
+.search-bar .clear-search,
 .search-bar .filter-button {
-    margin-left: 10px;
     background: transparent;
     border: none;
     cursor: pointer;
-    color: #999;
 }
 
 .filter-options {
     position: absolute;
-    background: white;
+    background: rgba(0, 0, 0, 0.10);
     border: 1px solid #ddd;
     border-radius: 4px;
     padding: 10px;
@@ -76,4 +108,38 @@
 
 .filter-options div:hover {
     background-color: #f0f0f0;
+}
+
+.category-picker {
+    display: flex;
+    padding: 5px 5px;
+    margin-top: -35px;
+    margin-bottom: 25px;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-start;
+    /* Center the buttons if you prefer */
+}
+
+.category-btn {
+    display: flex;
+    padding: 10px 20px;
+    align-items: center;
+    gap: 10px;
+    border-radius: 48px;
+    background: rgba(0, 0, 0, 0.25);
+    color: rgba(255, 255, 255, 0.80);
+    font-family: Rubik, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+    border: none;
+    /* Remove default button border */
+    outline: none;
+    /* Remove focus outline */
+}
+
+.category-btn.selected {
+    background: blue;
+    /* Nice blue background for selected category */
 }
