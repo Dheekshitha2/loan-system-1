@@ -31,6 +31,38 @@ body {
 }
 
 
+.content-area,
+.main-content {
+  max-width: 1200px;
+  /* Adjust based on your design preference */
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content-area,
+.main-content {
+  max-width: 1200px;
+  /* Adjust based on your design preference */
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 1200px) {
+
+  .content-area,
+  .main-content {
+    padding: 0 20px;
+    /* Adds padding on smaller screens */
+  }
+}
+
+
 .categories-sidebar {
   position: sticky;
   top: 150px;
@@ -155,4 +187,22 @@ p {
   line-height: normal;
   width: 736px;
   margin-top: -5px;
+}
+
+.scrollToTop-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1000;
+  /* Ensure it's visible above other content */
+}
+
+.scrollToTop-btn:hover {
+  background-color: #0056b3;
 }

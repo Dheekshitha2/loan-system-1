@@ -15,6 +15,13 @@ function Home({ cart, setCart }) {
     }
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth', // For smooth scrolling
+    });
+  };
+
   return (
     <div className="content-area">
       <div className="welcome-message">
@@ -25,6 +32,7 @@ function Home({ cart, setCart }) {
         cart={cart}
         setCart={setCart}
         selectedCategories={selectedCategories} />
+      <button className="scrollToTop-btn" onClick={scrollToTop}>Back to Top</button>
     </div>
   );
 }

@@ -1,7 +1,9 @@
 .navbar {
+    position: sticky;
+    top: 0;
     width: 100%;
+    z-index: 1000;
     height: 120px;
-    /* Set to your desired height */
     background-color: black;
     display: flex;
     flex-direction: row;
