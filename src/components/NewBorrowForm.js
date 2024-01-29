@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../styles/NewBorrowForm.css';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { useCart } from './CartContext';;
 
 function NewBorrowForm() {
 
@@ -9,6 +10,7 @@ function NewBorrowForm() {
     const selectedItems = location.state?.selectedItems || [];
     const [errors, setErrors] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const { cart, setCart } = useCart(); // Destructure setCart from the context
 
 
     const [formData, setFormData] = useState({
@@ -55,9 +57,18 @@ function NewBorrowForm() {
         let isValid = true;
         let newErrors = {};
 
+        // Email validation regex
+        const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
         Object.keys(formData).forEach(key => {
             if (formData[key].trim() === '') {
                 newErrors[key] = 'Field cannot be blank';
+                isValid = false;
+            }
+
+            // Specific validation for email fields
+            if ((key === 'email' || key === 'supervisor_email') && !emailRegex.test(formData[key].trim())) {
+                newErrors[key] = 'Invalid email format';
                 isValid = false;
             }
         });
@@ -71,8 +82,6 @@ function NewBorrowForm() {
         setErrors(newErrors);
         return isValid;
     };
-
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -97,6 +106,7 @@ function NewBorrowForm() {
 
                 await axios.post('https://loan-sys-express.onrender.com/api/submit-form', formDataToSend);
                 setIsSubmitted(true);
+                setCart([]); // Clear the cart after successful form submission
             } catch (error) {
                 console.error('Error submitting form:', error);
             }

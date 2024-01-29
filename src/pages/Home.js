@@ -48,7 +48,7 @@ function Home({ cart, setCart }) {
         cart={cart}
         setCart={setCart}
         selectedCategories={selectedCategories} />
-      {showTopBtn && <button className="scrollToTop-btn" onClick={scrollToTop}>Top</button>}
+      {showTopBtn && <button className="scrollToTop-btn" onClick={scrollToTop}>Back to Top</button>}
     </div>
   );
 }

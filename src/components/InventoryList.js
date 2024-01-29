@@ -53,9 +53,6 @@ function InventoryItem({ item, onAddToCart }) {
 }
 
 
-
-
-
 function InventoryList({ cart, setCart }) {
     const [items, setItems] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
