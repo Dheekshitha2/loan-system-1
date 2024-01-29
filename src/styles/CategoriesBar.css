@@ -7,7 +7,6 @@
     position: sticky;
     left: 0;
     /* Align to the left side */
-    overflow-y: auto;
     height: calc(100vh - 150px);
 }
 
