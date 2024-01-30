@@ -16,7 +16,6 @@ function NewBorrowForm() {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        matric_or_staff_no: '',
         project_title: '',
         project_code: '',
         phone_number: '',
