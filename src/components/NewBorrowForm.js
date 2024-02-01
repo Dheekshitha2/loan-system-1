@@ -103,7 +103,7 @@ function NewBorrowForm() {
                 };
                 console.log("formDataToSend:", formDataToSend);
 
-                await axios.post('https://loan-sys-express.onrender.com/api/submit-form', formDataToSend);
+                await axios.post('https://express-server-1.fly.dev/api/submit-form', formDataToSend);
                 setIsSubmitted(true);
                 setCart([]); // Clear the cart after successful form submission
             } catch (error) {
