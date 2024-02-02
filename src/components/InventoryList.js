@@ -82,38 +82,33 @@ function InventoryList({ cart, setCart }) {
     };
 
     const addToCart = (item, quantity) => {
-        // Find if the item is already in the cart
+        // Check if the item already exists in the cart
         const existingItemIndex = cart.findIndex(cartItem => cartItem.item_id === item.item_id);
 
+        // Creating a Set of unique item IDs from the cart to check the number of unique items
+        const uniqueItemTypes = new Set(cart.map(cartItem => cartItem.item_id));
+
+        // If the item is not already in the cart and adding it would exceed 5 different items
+        if (existingItemIndex === -1 && uniqueItemTypes.size >= 5) {
+            alert("You cannot add more than 5 different types of items to the cart.");
+            return;
+        }
+
+        // Logic for adding or updating the item in the cart
         if (existingItemIndex >= 0) {
-            // If the item exists, update the quantity, ensuring it does not exceed available quantity
-            const existingItem = cart[existingItemIndex];
-            const updatedQty = existingItem.qty_borrowed + quantity;
-
-            if (updatedQty > item.qty_available) {
-                alert(`You cannot add more than ${item.qty_available} of this item.`);
-                return;
-            }
-
-            let updatedCart = [...cart];
-            updatedCart[existingItemIndex] = { ...existingItem, qty_borrowed: updatedQty };
+            // Item exists, update its quantity
+            const updatedCart = cart.map((cartItem, index) =>
+                index === existingItemIndex
+                    ? { ...cartItem, qty_borrowed: cartItem.qty_borrowed + quantity }
+                    : cartItem
+            );
             setCart(updatedCart);
         } else {
-            // If the item is not in the cart, add it directly
-            if (quantity > item.qty_available) {
-                alert(`You cannot add more than ${item.qty_available} of this item.`);
-                return;
-            }
-
-            // If the item is not in the cart and the cart length is 5, prevent adding
-            if (!existingItemIndex && cart.length >= 5) {
-                alert("You cannot add more than 5 different items to the cart.");
-                return;
-            }
-            const newCartItem = { ...item, qty_borrowed: quantity };
-            setCart(currentCart => [...currentCart, newCartItem]);
+            // Item doesn't exist, add new item
+            setCart([...cart, { ...item, qty_borrowed: quantity }]);
         }
     };
+
 
     const filteredItems = items.filter(item =>
         (selectedCategories.length === 0 || selectedCategories.includes(item.category)) &&
