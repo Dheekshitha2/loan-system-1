@@ -28,8 +28,8 @@ function InventoryItem({ item, onAddToCart }) {
             <div className={`inventory-item`} onClick={handleItemClick}>
                 <img src={imageUrl} alt={item.item_name} onError={handleImageError} className="item-image" />
                 <h3 className="item-title">{item.item_name}</h3>
-                {item.brand && <p className="item-brand">Brand: {item.brand}</p>}
-                <p className="item-details">Quantity Available: {item.qty_available}</p>
+                {item.brand && <p className="item-brand">{item.brand}</p>}
+                <p className="item-details">Qty: {item.qty_available}</p>
             </div>
 
             <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
@@ -60,10 +60,30 @@ function InventoryList({ cart, setCart }) {
 
     const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
+    // Create a function to group items with the same name and brand and add their quantities
+    const groupAndSumItems = (items) => {
+        const groupedItems = {};
+        items.forEach((item) => {
+            const key = `${item.item_name}_${item.brand}`;
+            const qty = parseInt(item.qty_available, 10); // Convert to integer
+            if (groupedItems[key]) {
+                groupedItems[key].qty_available += qty;
+            } else {
+                groupedItems[key] = { ...item, qty_available: qty }; // Update the qty_available property
+            }
+        });
+        return Object.values(groupedItems);
+    };
+
+
+
     useEffect(() => {
         fetch(`${API_URL}/api/inventory`)
             .then(response => response.json())
-            .then(data => setItems(data))
+            .then(data => {
+                const groupedItems = groupAndSumItems(data);
+                setItems(groupedItems);
+            })
             .catch(error => console.error('Error fetching data:', error));
     }, [API_URL]);
 
