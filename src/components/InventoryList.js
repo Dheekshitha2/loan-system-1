@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Modal from './Modal';
 import '../styles/App.css';
 import SearchBar from './SearchBar';
+import { useCart } from './CartContext';
 
 function InventoryItem({ item, onAddToCart }) {
     const [modalOpen, setModalOpen] = useState(false);
@@ -53,10 +54,11 @@ function InventoryItem({ item, onAddToCart }) {
 }
 
 
-function InventoryList({ cart, setCart }) {
+function InventoryList() {
     const [items, setItems] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [selectedCategories, setSelectedCategories] = useState([]); // Change to array
+    const [selectedCategories, setSelectedCategories] = useState([]);
+    const { cart, setCart } = useCart();
 
     const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 

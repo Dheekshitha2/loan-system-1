@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import './styles/App.css';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
@@ -8,15 +7,13 @@ import { CartProvider } from './components/CartContext'; // Import the provider
 
 
 function App() {
-  const [cart, setCart] = useState([]);
-
   return (
     <div className="App">
       <CartProvider>
         <Router>
-          <Navbar cart={cart} setCart={setCart} />
+          <Navbar />
           <Routes>
-            <Route path="/" element={<Home cart={cart} setCart={setCart} />} />
+            <Route path="/" element={<Home />} />
             <Route path="/new-borrow-form" element={<NewBorrowForm />} />
           </Routes>
         </Router>
@@ -24,6 +21,7 @@ function App() {
     </div>
   );
 }
+
 
 export default App;
 

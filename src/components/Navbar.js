@@ -4,11 +4,15 @@ import Logo from "../hub_logo_white.png";
 import { Link } from "react-router-dom";
 import "../styles/Navbar.css";
 import { useNavigate } from 'react-router-dom';
+import { useCart } from "./CartContext";
+
 const defaultImageUrl = `/assets/default.jpg`;
 
-function Navbar({ cart, setCart }) {
+function Navbar() {
     const [isCartOpen, setIsCartOpen] = useState(false);
     let navigate = useNavigate();
+    const { cart, setCart } = useCart(); // Use useCart here
+
 
     const toggleCart = () => {
         setIsCartOpen(!isCartOpen);

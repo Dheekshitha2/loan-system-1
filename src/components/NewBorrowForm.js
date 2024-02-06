@@ -105,7 +105,9 @@ function NewBorrowForm() {
 
                 await axios.post('https://express-server-1.fly.dev/api/submit-form', formDataToSend);
                 setIsSubmitted(true);
-                setCart([]); // Clear the cart after successful form submission
+                console.log("Emptying cart");
+                setCart([]);
+                console.log("Cart should be empty", cart);
             } catch (error) {
                 console.error('Error submitting form:', error);
             }
