@@ -109,13 +109,12 @@ body {
 
 .inventory-item .item-image {
   width: 100%;
-  max-height: 140px;
-  object-fit: contain;
+  height: auto;
+  object-fit: cover;
   margin-bottom: 10px;
   margin-top: 10px;
   border-radius: 8px;
   height: auto;
-  aspect-ratio: 16 / 9;
 }
 
 /* Add responsive behavior */

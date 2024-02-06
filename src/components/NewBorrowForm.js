@@ -2,16 +2,14 @@ import React, { useState, useEffect } from 'react';
 import '../styles/NewBorrowForm.css';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { useCart } from './CartContext';;
+import { useCart } from './CartContext';
 
 function NewBorrowForm() {
-
     const location = useLocation();
     const selectedItems = location.state?.selectedItems || [];
     const [errors, setErrors] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
-    const { cart, setCart } = useCart();
-
+    const { setCart } = useCart();
 
     const [formData, setFormData] = useState({
         name: '',
@@ -29,28 +27,22 @@ function NewBorrowForm() {
     });
 
     const handleChange = (e) => {
-        const updatedFormData = { ...formData, [e.target.name]: e.target.value };
-        setFormData(updatedFormData);
-        setErrors({ ...errors, [e.target.name]: '' });
+        const { name, value } = e.target;
+        let updatedErrors = { ...errors, [name]: '' };
+        const updatedFormData = { ...formData, [name]: value };
 
-        // Additional validation for date fields
-        if (e.target.name === 'end_usage_date' || e.target.name === 'start_usage_date') {
-            const startDate = updatedFormData['start_usage_date'];
-            const endDate = updatedFormData['end_usage_date'];
-            const today = new Date();
-            today.setHours(0, 0, 0, 0); // Reset time to start of the day
-
-            if (startDate && new Date(startDate) < today) {
-                // Set error if start date is today's date or earlier
-                setErrors(prevErrors => ({ ...prevErrors, 'start_usage_date': 'Start date cannot be today or earlier' }));
-            } else if (startDate && endDate && new Date(endDate) < new Date(startDate)) {
-                // Set error if end date is before start date
-                setErrors(prevErrors => ({ ...prevErrors, 'end_usage_date': 'End date cannot be earlier than start date' }));
+        // Check for weekend dates
+        if (name === 'start_usage_date' || name === 'end_usage_date') {
+            const date = new Date(value);
+            const dayOfWeek = date.getDay();
+            if (dayOfWeek === 0 || dayOfWeek === 6) { // 0 = Sunday, 6 = Saturday
+                updatedErrors[name] = 'Weekend dates are not allowed';
             }
         }
+
+        setFormData(updatedFormData);
+        setErrors(updatedErrors);
     };
-
-
 
     const validateForm = () => {
         let isValid = true;
@@ -60,23 +52,25 @@ function NewBorrowForm() {
         const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
         Object.keys(formData).forEach(key => {
-            if (formData[key].trim() === '') {
+            if (!formData[key].trim() && key !== 'additional_remarks') {
                 newErrors[key] = 'Field cannot be blank';
                 isValid = false;
             }
 
-            // Specific validation for email fields
             if ((key === 'email' || key === 'supervisor_email') && !emailRegex.test(formData[key].trim())) {
                 newErrors[key] = 'Invalid email format';
                 isValid = false;
             }
-        });
 
-        // Validate that end date is not before start date
-        if (new Date(formData.end_usage_date) < new Date(formData.start_usage_date)) {
-            newErrors['end_usage_date'] = 'End date cannot be earlier than start date!';
-            isValid = false;
-        }
+            if ((key === 'start_usage_date' || key === 'end_usage_date') && formData[key]) {
+                const date = new Date(formData[key]);
+                const dayOfWeek = date.getDay();
+                if (dayOfWeek === 0 || dayOfWeek === 6) {
+                    newErrors[key] = 'Weekend dates are not allowed';
+                    isValid = false;
+                }
+            }
+        });
 
         setErrors(newErrors);
         return isValid;
@@ -86,28 +80,22 @@ function NewBorrowForm() {
         e.preventDefault();
         if (validateForm()) {
             try {
-                // Initialize an object to hold the flattened item data
-                let itemsData = {};
-
-                // Flatten selectedItems into formData
-                selectedItems.forEach((item, index) => {
-                    itemsData[`item_id_${index + 1}`] = item.item_id;
-                    itemsData[`item_name_${index + 1}`] = item.item_name;
-                    itemsData[`quantity_${index + 1}`] = item.qty_borrowed;
-                });
+                let itemsData = selectedItems.reduce((acc, item, index) => {
+                    acc[`item_id_${index + 1}`] = item.item_id;
+                    acc[`item_name_${index + 1}`] = item.item_name;
+                    acc[`quantity_${index + 1}`] = item.qty_borrowed;
+                    return acc;
+                }, {});
 
                 const formDataToSend = {
                     ...formData,
                     ...itemsData,
                     completion_time: new Date().toISOString()
                 };
-                console.log("formDataToSend:", formDataToSend);
 
                 await axios.post('https://express-server-1.fly.dev/api/submit-form', formDataToSend);
                 setIsSubmitted(true);
-                console.log("Emptying cart");
                 setCart([]);
-                console.log("Cart should be empty", cart);
             } catch (error) {
                 console.error('Error submitting form:', error);
             }
@@ -115,7 +103,6 @@ function NewBorrowForm() {
     };
 
     useEffect(() => {
-        // Scroll to top on component mount
         window.scrollTo(0, 0);
     }, []);
 
@@ -147,6 +134,7 @@ function NewBorrowForm() {
                             name={key}
                             value={formData[key]}
                             onChange={handleChange}
+                            className={errors[key] ? 'input-error' : ''}
                         />
                         {errors[key] && <p className="form-error">{errors[key]}</p>}
                     </div>
