@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/NewBorrowForm.css';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -10,7 +10,7 @@ function NewBorrowForm() {
     const selectedItems = location.state?.selectedItems || [];
     const [errors, setErrors] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
-    const { cart, setCart } = useCart(); // Destructure setCart from the context
+    const { cart, setCart } = useCart();
 
 
     const [formData, setFormData] = useState({
@@ -112,8 +112,10 @@ function NewBorrowForm() {
         }
     };
 
-
-
+    useEffect(() => {
+        // Scroll to top on component mount
+        window.scrollTo(0, 0);
+    }, []);
 
     if (isSubmitted) {
         return <div className="submission-success">Form submitted successfully!</div>;

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap&font-display=swap');
 
 body,
 html {
@@ -89,7 +89,6 @@ body {
   padding: 20px;
   /* Adjust padding as needed */
   justify-content: center;
-  /* This will center the grid items if they don't fill the entire width */
 }
 
 .inventory-item {
@@ -115,6 +114,8 @@ body {
   margin-bottom: 10px;
   margin-top: 10px;
   border-radius: 8px;
+  height: auto;
+  aspect-ratio: 16 / 9;
 }
 
 /* Add responsive behavior */

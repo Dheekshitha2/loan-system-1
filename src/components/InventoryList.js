@@ -76,7 +76,6 @@ function InventoryList({ cart, setCart }) {
     };
 
 
-
     useEffect(() => {
         fetch(`${API_URL}/api/inventory`)
             .then(response => response.json())

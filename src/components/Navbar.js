@@ -20,6 +20,7 @@ function Navbar({ cart, setCart }) {
 
     const handleCheckout = () => {
         if (cart.length > 0) {
+            setIsCartOpen(false);
             navigate('/new-borrow-form', { state: { selectedItems: cart } });
         } else {
             alert("Please select the items you wish to borrow.");
