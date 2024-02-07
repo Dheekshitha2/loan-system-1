@@ -45,7 +45,7 @@ function InventoryItem({ item, onAddToCart }) {
                     value={quantity}
                     onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value, 10)))}
                     min="1"
-                    max={item.total_qty}
+                    max={item.qty_available}
                 />
                 <button onClick={handleAddToCart}>Add to Cart</button>
             </Modal>
@@ -102,22 +102,33 @@ function InventoryList() {
         }
     };
 
-    const addToCart = (item, quantity) => {
-        // Check if the item already exists in the cart
+    const addToCart = (item, quantityToAdd) => {
+        // Convert the added quantity to a number to ensure proper calculations
+        const quantity = Number(quantityToAdd);
+
+        // Find if the item already exists in the cart
         const existingItemIndex = cart.findIndex(cartItem => cartItem.item_id === item.item_id);
 
-        // Creating a Set of unique item IDs from the cart to check the number of unique items
-        const uniqueItemTypes = new Set(cart.map(cartItem => cartItem.item_id));
+        // Calculate the total quantity that will be in the cart after adding the new quantity
+        const totalQuantityInCart = existingItemIndex >= 0
+            ? cart[existingItemIndex].qty_borrowed + quantity
+            : quantity;
 
-        // If the item is not already in the cart and adding it would exceed 5 different items
-        if (existingItemIndex === -1 && uniqueItemTypes.size >= 5) {
-            alert("You cannot add more than 5 different types of items to the cart.");
-            return;
+        // Check if adding the item exceeds the available quantity
+        if (totalQuantityInCart > item.qty_available) {
+            alert("Cannot add more items to the cart than available.");
+            return; // Stop execution if adding exceeds available stock
         }
 
-        // Logic for adding or updating the item in the cart
+        // Check if adding a new item type exceeds the limit of 5 different items
+        if (existingItemIndex === -1 && new Set(cart.map(cartItem => cartItem.item_id)).size >= 5) {
+            alert("You cannot add more than 5 different types of items to the cart.");
+            return; // Stop execution if it would exceed 5 different item types
+        }
+
+        // Update cart with the new or updated item
         if (existingItemIndex >= 0) {
-            // Item exists, update its quantity
+            // Item already exists in cart, update its quantity
             const updatedCart = cart.map((cartItem, index) =>
                 index === existingItemIndex
                     ? { ...cartItem, qty_borrowed: cartItem.qty_borrowed + quantity }
@@ -125,10 +136,11 @@ function InventoryList() {
             );
             setCart(updatedCart);
         } else {
-            // Item doesn't exist, add new item
+            // Item does not exist, add as a new item
             setCart([...cart, { ...item, qty_borrowed: quantity }]);
         }
     };
+
 
 
     const filteredItems = items.filter(item =>
