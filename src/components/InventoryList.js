@@ -17,7 +17,7 @@ function InventoryItem({ item, onAddToCart }) {
         setModalOpen(false);
     };
 
-    const imageUrl = `/assets/${item.item_name.replace(/\s+/g, '_')}-${item.brand.replace(/\s+/g, '_')}.jpg`.toLowerCase();
+    const imageUrl = `/assets/${item.item_name.replace(/\//g, '_').replace(/\s+/g, '_')}-${item.brand.replace(/\s+/g, '_')}.jpg`.toLowerCase();
     const defaultImageUrl = `/assets/default.jpg`;
 
     const handleImageError = (e) => {
