@@ -49,7 +49,7 @@ function Navbar() {
                         <div className="cart-header">My Cart</div>
                         {cart.map((item, index) => (
                             <div key={index} className="cart-item" style={{ position: 'relative' }}>
-                                <img src={item.image || defaultImageUrl} alt={item.item_name} style={{ width: '70px', height: '70px', borderRadius: '8px' }} />
+                                <img src={item.imageUrl || defaultImageUrl} alt={item.item_name} style={{ width: '70px', height: '70px', borderRadius: '8px' }} />
                                 <div className="cart-item-details">
                                     <div className="cart-item-name">{item.item_name}</div>
                                     <div className="cart-item-qty">Qty: {item.qty_borrowed}</div>

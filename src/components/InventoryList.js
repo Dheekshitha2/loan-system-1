@@ -62,6 +62,7 @@ function InventoryList() {
 
     const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
+
     // Create a function to group items with the same name and brand and add their quantities
     const groupAndSumItems = (items) => {
         const groupedItems = {};
@@ -105,6 +106,7 @@ function InventoryList() {
     const addToCart = (item, quantityToAdd) => {
         // Convert the added quantity to a number to ensure proper calculations
         const quantity = Number(quantityToAdd);
+        const imageUrl = `/assets/${item.item_name.replace(/\//g, '_').replace(/\s+/g, '_')}-${item.brand.replace(/\s+/g, '_')}.jpg`.toLowerCase();
 
         // Find if the item already exists in the cart
         const existingItemIndex = cart.findIndex(cartItem => cartItem.item_id === item.item_id);
@@ -137,7 +139,7 @@ function InventoryList() {
             setCart(updatedCart);
         } else {
             // Item does not exist, add as a new item
-            setCart([...cart, { ...item, qty_borrowed: quantity }]);
+            setCart([...cart, { ...item, qty_borrowed: quantity, imageUrl }]);
         }
     };
 
