@@ -109,12 +109,16 @@ body {
 
 .inventory-item .item-image {
   width: 100%;
-  height: auto;
-  object-fit: cover;
+  /* Adjust to 100% of the container for responsive behavior */
+  height: 200px;
+  /* Set a fixed height */
+  object-fit: contain;
+  /* Change to contain to prevent cropping */
   margin-bottom: 10px;
   margin-top: 10px;
   border-radius: 8px;
-  height: auto;
+  background-color: #fff;
+  /* Optional: Set a background color in case the image is smaller than the container */
 }
 
 /* Add responsive behavior */
@@ -136,7 +140,12 @@ body {
   }
 }
 
-.item-title,
+.item-title {
+  font-size: 1em;
+  color: black;
+  text-align: center;
+}
+
 .item-brand,
 .item-details {
   font-size: 1em;
@@ -171,9 +180,12 @@ input[type="text"] {
 }
 
 .item-modal-image {
-  max-width: 90%;
-  max-height: 200px;
+  width: 200px;
+  /* Adjust width to standard */
+  height: 200px;
+  /* Adjust height to standard */
   object-fit: contain;
+  /* Ensure full image is visible, may add empty space */
   margin-bottom: 20px;
 }
 
