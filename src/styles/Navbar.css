@@ -62,6 +62,13 @@
 .cart-icon {
     cursor: pointer;
     color: black;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.cart-icon:hover {
+    color: #004494;
 }
 
 /* Cart Dropdown Body */
@@ -83,7 +90,6 @@
     max-height: 300px;
     overflow-y: auto;
     overflow-x: hidden;
-    /* Prevent horizontal scrolling */
 }
 
 .cart-header,
@@ -167,7 +173,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 358px;
+    width: 340px;
     height: 39px;
     padding: 10px;
     margin-top: 10px;
