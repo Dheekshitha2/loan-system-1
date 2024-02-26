@@ -17,7 +17,9 @@ function InventoryItem({ item, onAddToCart }) {
         setModalOpen(false);
     };
 
-    const imageUrl = `/assets/${item.item_name.replace(/\//g, '_').replace(/\s+/g, '_')}-${item.brand.replace(/\s+/g, '_')}.jpg`.toLowerCase();
+    const imageName = item.item_name ? item.item_name.replace(/\//g, '_').replace(/\s+/g, '_') : 'default';
+    const brandName = item.brand ? item.brand.replace(/\s+/g, '_') : 'default_brand';
+    const imageUrl = `/assets/${imageName}-${brandName}.jpg`.toLowerCase();
     const defaultImageUrl = `/assets/default.jpg`;
 
     const handleImageError = (e) => {
@@ -87,6 +89,7 @@ function InventoryList() {
             })
             .catch(error => console.error('Error fetching data:', error));
     }, [API_URL]);
+
 
     const handleSearchChange = (newSearchTerm) => {
         setSearchTerm(newSearchTerm);
