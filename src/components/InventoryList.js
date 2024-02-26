@@ -37,7 +37,6 @@ function InventoryItem({ item, onAddToCart }) {
                 <h2>{item.item_name}</h2>
                 {item.brand && <p>Brand: {item.brand}</p>}
                 <p>Model: {item.model || 'N/A'}</p>
-                <p>Serial Number: {item.serial_no || 'N/A'}</p>
                 <p>Size/Specs: {item.size_specs || 'N/A'}</p>
                 <img src={imageUrl} alt={`${item.item_name} view`} onError={handleImageError} className="item-modal-image" />
                 <input
