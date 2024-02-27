@@ -19,7 +19,7 @@ function InventoryItem({ item, onAddToCart }) {
 
     const imageName = item.item_name ? item.item_name.replace(/\//g, '_').replace(/\s+/g, '_') : 'default';
     const brandName = item.brand ? item.brand.replace(/\s+/g, '_') : 'default_brand';
-    const imageUrl = `/assets/${imageName}-${brandName}.jpg`.toLowerCase();
+    const imageUrl = item.brand ? `/assets/${imageName}-${brandName}.jpg`.toLowerCase() : `/assets/${imageName}.jpg`.toLowerCase();
     const defaultImageUrl = `/assets/default.jpg`;
 
     const handleImageError = (e) => {
