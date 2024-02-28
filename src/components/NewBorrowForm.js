@@ -19,11 +19,9 @@ function NewBorrowForm() {
         phone_number: '',
         start_usage_date: '',
         end_usage_date: '',
-        location_of_usage: '',
         purpose_of_usage: '',
         project_supervisor_name: '',
-        supervisor_email: '',
-        additional_remarks: ''
+        supervisor_email: ''
     });
 
     const handleChange = (e) => {
