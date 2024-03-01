@@ -42,7 +42,7 @@ function Home({ cart, setCart }) {
     <div className="content-area">
       <div className="welcome-message">
         <h1>Welcome to the Hub’s Tool Catalogue</h1>
-        <p>Feel free to browse through the items we have for loan in the iDP Hub, and choose any items you require.</p>
+        <p>Feel free to browse through the items we have for loan in the Innovation & Design Hub, and choose any items you require.</p>
       </div>
       <InventoryList
         cart={cart}
