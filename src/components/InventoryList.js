@@ -147,11 +147,13 @@ function InventoryList() {
 
 
 
-    const filteredItems = items.filter(item =>
-        (selectedCategories.length === 0 || selectedCategories.includes(item.category)) &&
-        item.item_name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-        item.qty_available > 0
-    );
+    const filteredItems = items
+        .filter(item =>
+            (selectedCategories.length === 0 || selectedCategories.includes(item.category)) &&
+            item.item_name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+            item.qty_available > 0
+        )
+        .sort((a, b) => a.item_name.localeCompare(b.item_name)); // This line adds sorting by item_name
 
     return (
         <div className="main-content">
