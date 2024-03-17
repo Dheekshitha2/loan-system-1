@@ -37,9 +37,10 @@ function InventoryItem({ item, onAddToCart }) {
 
             <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
                 <h2>{item.item_name}</h2>
-                {item.brand && <p>Brand: {item.brand}</p>}
-                <p>Model: {item.model || 'N/A'}</p>
-                <p>Size/Specs: {item.size_specs || 'N/A'}</p>
+                {item.brand && <p><strong>Brand:</strong> {item.brand}</p>}
+                <p><strong>Model:</strong> {item.model || 'N/A'}</p>
+                <p><strong>Size/Specs:</strong> {item.size_specs || 'N/A'}</p>
+                <p><strong>Requires Approval:</strong> {item.requires_approval === 'true' ? 'Yes' : 'No'}</p>
                 <img src={imageUrl} alt={`${item.item_name} view`} onError={handleImageError} className="item-modal-image" />
                 <input
                     type="number"

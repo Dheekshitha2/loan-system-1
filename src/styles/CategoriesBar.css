@@ -12,26 +12,30 @@
 
 .categories-container {
     display: flex;
-    justify-content: left;
+    justify-content: flex-start;
+    /* Align items to the start of the container */
     flex-wrap: wrap;
-    flex-direction: column;
+    /* Allow items to wrap onto multiple lines */
     gap: 10px;
-    padding: 30px;
-    margin-left: -50px;
-    margin-top: -60px;
+    /* Maintain a gap between items */
+    padding: 20px;
+    /* Adjust padding as needed */
+    margin: 0 auto;
+    /* Center the container */
+    max-width: 100%;
+    /* Make sure the container does not exceed the width of its parent */
 }
 
 .category-card {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    /* Use the full width of the sidebar */
+    flex: 1 1 auto;
+    /* Allow cards to grow and shrink as needed */
+    min-width: 180px;
+    /* Adjust the min-width as needed for the smallest desirable width of a card */
+    padding: 10px;
+    box-sizing: border-box;
+    /* Include padding and border in the element's total width and height */
     cursor: pointer;
     transition: background-color 0.3s ease;
-    padding: 10px;
-    /* Add some padding for spacing */
 }
 
 .category-card:hover {
