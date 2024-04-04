@@ -59,7 +59,7 @@ function NewBorrowForm() {
 
             // Skip validation for supervisor fields if approval is not required
             if (!requiresApproval && (key === 'project_supervisor_name' || key === 'supervisor_email')) {
-                return; // Continue to the next iteration
+                return;
             }
 
             if (!formData[key].trim() && key !== 'additional_remarks') {
@@ -166,7 +166,7 @@ function NewBorrowForm() {
                         </div>
                     );
                 })}
-                <button type="submit" className="submit-button">Submit</button>
+                <button type="submit" className="submit-button" disabled={isSubmitted}>Submit</button>
             </form>
         </div>
     );
