@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import '../styles/NewBorrowForm.css';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -8,9 +8,11 @@ function NewBorrowForm() {
     const location = useLocation();
     const selectedItems = useMemo(() => location.state?.selectedItems || [], [location.state?.selectedItems]);
     const [errors, setErrors] = useState({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const { setCart } = useCart();
     const [requiresApproval, setRequiresApproval] = useState(false);
+    const submitButtonRef = useRef(null);
 
 
     const [formData, setFormData] = useState({
@@ -92,6 +94,9 @@ function NewBorrowForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (isSubmitting) return; // Prevent further execution if already submitting
+        setIsSubmitting(true); // Set early to prevent multiple submissions
+
         if (validateForm()) {
             try {
                 let itemsData = selectedItems.reduce((acc, item, index) => {
@@ -114,11 +119,16 @@ function NewBorrowForm() {
                 }
 
                 await axios.post('https://express-server-1.fly.dev/api/submit-form', formDataToSend);
-                setIsSubmitted(true);
+                setIsSubmitted(true); // Set this on successful submission
                 setCart([]);
             } catch (error) {
                 console.error('Error submitting form:', error);
+                setIsSubmitting(false); // Reset on error as well
+            } finally {
+                setIsSubmitting(false); // Always reset submitting state after the operation
             }
+        } else {
+            setIsSubmitting(false); // Reset if validation fails
         }
     };
 
@@ -126,7 +136,10 @@ function NewBorrowForm() {
         window.scrollTo(0, 0);
     }, []);
 
-    if (isSubmitted) {
+    if (isSubmitting) {
+        return <div className="loading-message">Submitting...</div>;
+    }
+    else if (isSubmitted) {
         return <div className="submission-success">Form submitted successfully!</div>;
     }
 
@@ -166,7 +179,7 @@ function NewBorrowForm() {
                         </div>
                     );
                 })}
-                <button type="submit" className="submit-button" disabled={isSubmitted}>Submit</button>
+                <button type="submit" disabled={isSubmitting} className="submit-button">Submit</button>
             </form>
         </div>
     );
